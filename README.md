@@ -12,7 +12,7 @@
 | **FastAPI** | веб-фреймворк и маршруты |
 | **Uvicorn** | ASGI-сервер |
 | **Jinja2** | HTML-шаблоны |
-| **Docker** | контейнеризация и деплой |
+| **Vercel** | serverless-деплой |
 
 ## Возможности
 
@@ -29,26 +29,6 @@
 | `GET` | `/` | Главная страница и форма поиска |
 | `POST` | `/recommendations/` | Подборка книг и рекомендации по автору и жанру |
 | `GET` | `/static/...` | Статические файлы (CSS) |
-
-## Запуск через Docker
-
-Нужен установленный [Docker](https://docs.docker.com/get-docker/).
-
-Сборка образа:
-
-```bash
-docker build -t bookandapple .
-```
-
-Запуск контейнера:
-
-```bash
-docker run -p 8000:8000 -e PORT=8000 bookandapple
-```
-
-Откройте в браузере: [http://localhost:8000](http://localhost:8000).
-
-Переменная `PORT` задаёт порт внутри контейнера (так же, как на хостинге Render). Сопоставление `-p 8000:8000` публикует этот порт на машине.
 
 ## Запуск локально
 
@@ -87,6 +67,30 @@ docker run -p 8000:8000 -e PORT=8000 bookandapple
 
 Приложение будет доступно по адресу [http://localhost:8000](http://localhost:8000).
 
+## Деплой на Vercel
+
+Проект рассчитан на **Vercel Serverless Functions** (`@vercel/python`). Конфигурация лежит в корне: `vercel.json`.
+
+1. Установите [Vercel CLI](https://vercel.com/docs/cli):
+
+   ```bash
+   npm i -g vercel
+   ```
+
+2. Перейдите в папку проекта:
+
+   ```bash
+   cd BookAndApple
+   ```
+
+3. Запустите деплой:
+
+   ```bash
+   vercel
+   ```
+
+CLI запросит вход в аккаунт Vercel (если ещё не авторизованы) и настройки проекта. После завершения появится URL превью. Для продакшена используйте `vercel --prod`.
+
 ## Структура проекта
 
 ```text
@@ -95,7 +99,7 @@ BookAndApple/
 │   ├── main.py              # маршруты FastAPI и запросы к Open Library
 │   ├── static/style.css
 │   └── templates/           # Jinja2: base, home, recommendations
-├── Dockerfile
+├── vercel.json              # маршрутизация для Vercel
 ├── requirements.txt
 └── README.md
 ```
