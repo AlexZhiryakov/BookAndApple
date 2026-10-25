@@ -1,19 +1,16 @@
-FROM python:3.10
+FROM python:3.10-slim
 
-# Установка рабочей директории
 WORKDIR /app
 
-# Копируем requirements.txt в контейнер
-COPY requirements.txt .
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
-# Установка зависимости
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копия папки app в контейнер
 COPY ./app /app
 
-COPY ./app/templates /app/templates
-COPY ./app/static /app/static
+EXPOSE 8000
 
-# Запуск приложения
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+# Render подставляет $PORT; локально по умолчанию 8000
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}
