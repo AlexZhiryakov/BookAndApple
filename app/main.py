@@ -26,7 +26,7 @@ async def home(request: Request):
         }
         for book in popular_books_data
     ]
-    return templates.TemplateResponse("home.html", {"request": request, "popular_books": popular_books})
+    return templates.TemplateResponse(request=request, name="home.html", context={"popular_books": popular_books})
 
 # Отправка предпочтений пользователя и отображение рекомендаций
 @app.post("/recommendations/")
@@ -60,12 +60,15 @@ async def recommendations(request: Request, author: str = Form(...), genre: str 
     # Рекомендуемые книги (книги жанра, не попадающие в список книг по автору)
     recommendations = [book for book in genre_books if book["title"] not in [ab["title"] for ab in author_books]]
     print(recommendations)
-    return templates.TemplateResponse("recommendations.html", {
-        "request": request,
-        "author_books": author_books,
-        "genre_books": genre_books,
-        "recommendations": recommendations,
-    })
+    return templates.TemplateResponse(
+        request=request,
+        name="recommendations.html",
+        context={
+            "author_books": author_books,
+            "genre_books": genre_books,
+            "recommendations": recommendations,
+        },
+    )
 
 # Для запуска проекта нужно прописать в терминал: docker run -p 80:80 my-fastapi-app
 # Добавить изменения: docker build -t my-fastapi-app .
