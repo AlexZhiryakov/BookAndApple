@@ -1,58 +1,40 @@
 {% extends 'base.html' %}
+{% from "_macros.html" import book_card with context %}
 
 {% block content %}
-<h2>Книги от {{ request.form.author }}</h2>
-<ul>
-    {% for book in author_books %}
-        <li>
-            <h4>{{ book.title }}</h4>
-            {% if book.author %}
-                <p>от {{ book.author }}</p>
-            {% endif %}
-            {% if book.cover_id %}
-                <img src="https://covers.openlibrary.org/b/id/{{ book.cover_id }}-M.jpg" alt="{{ book.title }} cover">
-            {% endif %}
-            {% if book.description %}
-                <p>{{ book.description }}</p>
-            {% endif %}
-        </li>
-    {% endfor %}
-</ul>
+<a class="back-link" href="/">&larr; На главную</a>
 
-<h2>Книги в жанре {{ request.form.genre }}</h2>
-<ul>
-    {% for book in genre_books %}
-        <li>
-            <h4>{{ book.title }}</h4>
-            {% if book.author %}
-                <p>от {{ book.author }}</p>
-            {% endif %}
-            {% if book.cover_id %}
-                <img src="https://covers.openlibrary.org/b/id/{{ book.cover_id }}-M.jpg" alt="{{ book.title }} cover">
-            {% endif %}
-            {% if book.description %}
-                <p>{{ book.description }}</p>
-            {% endif %}
-        </li>
-    {% endfor %}
-</ul>
+<section class="section">
+    <h2>Книги автора «{{ author }}»</h2>
+    {% if author_books %}
+        <div class="book-grid">
+            {% for book in author_books %}{{ book_card(book) }}{% endfor %}
+        </div>
+    {% else %}
+        <p class="empty">По этому автору ничего не нашлось. Проверьте написание имени.</p>
+    {% endif %}
+</section>
 
-<h2>Рекомендуемые книги</h2>
-<ul>
-    {% for book in recommendations %}
-        <li>
-            <h4>{{ book.title }}</h4>
-            {% if book.author %}
-                <p>от {{ book.author }}</p>
-            {% endif %}
-            {% if book.cover_id %}
-                <img src="https://covers.openlibrary.org/b/id/{{ book.cover_id }}-M.jpg" alt="{{ book.title }} cover">
-            {% endif %}
-            {% if book.description %}
-                <p>{{ book.description }}</p>
-            {% endif %}
-        </li>
-    {% endfor %}
-</ul>
+<section class="section">
+    <h2>Книги в жанре «{{ genre }}»</h2>
+    {% if genre_books %}
+        <div class="book-grid">
+            {% for book in genre_books %}{{ book_card(book) }}{% endfor %}
+        </div>
+    {% else %}
+        <p class="empty">В этом жанре книг не нашлось. Попробуйте другой жанр (например, fantasy).</p>
+    {% endif %}
+</section>
+
+<section class="section">
+    <h2>Рекомендуем ещё</h2>
+    {% if recommendations %}
+        <div class="book-grid">
+            {% for book in recommendations %}{{ book_card(book) }}{% endfor %}
+        </div>
+    {% else %}
+        <p class="empty">Пока нечего добавить к спискам выше.</p>
+    {% endif %}
+</section>
 {% endblock %}
 

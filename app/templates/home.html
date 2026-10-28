@@ -1,28 +1,31 @@
 {% extends 'base.html' %}
+{% from "_macros.html" import book_card with context %}
 
 {% block content %}
-<h2>Введите своего любимого автора и жанр</h2>
-<form action="/recommendations/" method="post">
-    <label for="author">Любимый автор:</label>
-    <input type="text" name="author" id="author" required>
-    <label for="genre">Любимый жанр:</label>
-    <input type="text" name="genre" id="genre" required>
-    <button type="submit">Найти книги</button>
-</form>
+<section class="hero">
+    <h1>Подберите книги по вкусу</h1>
+    <p>Введите любимого автора и жанр — покажем книги автора, подборку жанра и персональные рекомендации.</p>
+    <form class="search-form" action="/recommendations/" method="post">
+        <div class="field">
+            <label for="author">Любимый автор</label>
+            <input type="text" name="author" id="author" maxlength="80" placeholder="например, Tolkien" required>
+        </div>
+        <div class="field">
+            <label for="genre">Любимый жанр</label>
+            <input type="text" name="genre" id="genre" maxlength="60" placeholder="например, fantasy" required>
+        </div>
+        <button type="submit">Найти книги</button>
+    </form>
+</section>
 
-<h2>Популярные книги</h2>
-<ul>
-    {% for book in popular_books %}
-        <li>
-            <h3>{{ book.title }}</h3>
-            <p>{% if book.author %} от {{ book.author }}{% endif %}</p>
-            {% if book.cover_id %}
-                <img src="https://covers.openlibrary.org/b/id/{{ book.cover_id }}-M.jpg" alt="{{ book.title }} cover">
-            {% endif %}
-            {% if book.description %}
-                <p>{{ book.description }}</p>
-            {% endif %}
-        </li>
-    {% endfor %}
-</ul>
+<section class="section">
+    <h2>Популярные книги</h2>
+    {% if popular_books %}
+        <div class="book-grid">
+            {% for book in popular_books %}{{ book_card(book) }}{% endfor %}
+        </div>
+    {% else %}
+        <p class="empty">Сейчас не удалось загрузить популярные книги. Попробуйте обновить страницу позже.</p>
+    {% endif %}
+</section>
 {% endblock %}

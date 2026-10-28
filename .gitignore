@@ -1,8 +1,39 @@
+# Python
+__pycache__/
+app/__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Виртуальные окружения
+.venv/
+venv/
+env/
+ENV/
+
+# Переменные окружения и секреты
+.env
+.env.*
+!.env.example
+
+# IDE
 .idea/
 .vscode/
-env/
-venv/
-__pycache__/
-*.pyc
-*.pyo
-.env
+*.iml
+
+# Тесты / покрытие / линтеры
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Старый статический CSS: стили встроены прямо в app/templates/base.html
+app/static/style.css

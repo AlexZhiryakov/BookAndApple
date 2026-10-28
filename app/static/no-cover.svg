@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="450" viewBox="0 0 300 450" role="img" aria-label="no cover">
+  <rect width="300" height="450" fill="#edf2f7"/>
+  <rect x="70" y="150" width="160" height="150" rx="10" fill="#cbd5e0"/>
+  <rect x="90" y="170" width="120" height="10" rx="5" fill="#a0aec0"/>
+  <rect x="90" y="192" width="120" height="10" rx="5" fill="#a0aec0"/>
+  <rect x="90" y="214" width="80" height="10" rx="5" fill="#a0aec0"/>
+  <text x="150" y="340" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#718096">no cover</text>
+</svg>
