@@ -85,46 +85,6 @@ pip install -r requirements-dev.txt
 ruff check .
 pytest
 ```
-
-## ⚙️ Переменные окружения
-
-| Переменная               | Назначение                                  | По умолчанию            |
-|--------------------------|---------------------------------------------|-------------------------|
-| `OPEN_LIBRARY_BASE_URL`  | базовый адрес Open Library API              | `https://openlibrary.org` |
-| `OPEN_LIBRARY_TIMEOUT`   | таймаут запросов к внешнему API (сек)       | `5`                     |
-| `POPULAR_CACHE_TTL`      | время жизни кеша «популярных книг» (сек)    | `600` (10 минут)        |
-| `POPULAR_LIMIT`          | сколько популярных книг запрашивать         | `12`                    |
-
-## 📁 Структура проекта
-
-```
-BookAndApple/
-├── app/
-│   ├── main.py                 # FastAPI, маршруты, httpx-клиент, кеш
-│   ├── requirements.txt        # зависимости приложения
-│   ├── layero.json             # конфиг запуска на Layero
-│   ├── static/
-│   │   └── no-cover.svg        # fallback-картинка обложки
-│   └── templates/
-│       ├── base.html           # каркас, встроенный CSS (адаптивная вёрстка)
-│       ├── _macros.html        # макрос карточки книги
-│       ├── home.html           # главная: форма поиска + популярные книги
-│       ├── recommendations.html# три подборки: автор / жанр / рекомендации
-│       └── error.html          # страница-заглушка при сбое внешнего API
-├── tests/
-│   ├── conftest.py             # TestClient и мок Open Library
-│   └── test_app.py             # тесты страниц и обработки ошибок
-├── .github/workflows/ci.yml
-├── vercel.json                 # конфиг деплоя на Vercel
-├── pyproject.toml              # настройки ruff и pytest
-├── requirements-dev.txt
-├── .env.example
-└── README.md
-```
-
-## 🧭 Что можно улучшить дальше
-
-- Кешировать ответы по автору и жанру, а не только «популярные книги».
 - Добавить пагинацию и сортировку в подборках.
 - Выбрать одну платформу деплоя и убрать дублирующий конфиг
   (`vercel.json` и `app/layero.json`).
