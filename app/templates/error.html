@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="notice">
+    <h1>Сервис временно недоступен</h1>
+    <p>{{ message }}</p>
+    {% if author or genre %}
+        <p>Ваш запрос — автор: <strong>{{ author }}</strong>, жанр: <strong>{{ genre }}</strong>.</p>
+    {% endif %}
+    <p><a class="back-link" href="/">&larr; Вернуться на главную</a></p>
+</div>
+{% endblock %}

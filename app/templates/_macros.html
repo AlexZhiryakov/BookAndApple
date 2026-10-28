@@ -1,0 +1,25 @@
+{% macro book_card(book) %}
+<article class="book-card">
+    <div class="book-cover">
+        {% if book.cover_id %}
+            <img src="https://covers.openlibrary.org/b/id/{{ book.cover_id }}-M.jpg"
+                 alt="Обложка: {{ book.title }}"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='{{ url_for('static', path='no-cover.svg') }}';">
+        {% else %}
+            <img src="{{ url_for('static', path='no-cover.svg') }}"
+                 alt="Обложка недоступна: {{ book.title }}"
+                 loading="lazy">
+        {% endif %}
+    </div>
+    <div class="book-info">
+        <h3 class="book-title">{{ book.title }}</h3>
+        {% if book.author %}
+            <p class="book-author">{{ book.author }}</p>
+        {% endif %}
+        {% if book.description %}
+            <p class="book-description">{{ book.description }}</p>
+        {% endif %}
+    </div>
+</article>
+{% endmacro %}
