@@ -85,9 +85,4 @@ pip install -r requirements-dev.txt
 ruff check .
 pytest
 ```
-- Добавить пагинацию и сортировку в подборках.
-- Выбрать одну платформу деплоя и убрать дублирующий конфиг
-  (`vercel.json` и `app/layero.json`).
-- Покрыть тестами разбор данных Open Library и добавить `pytest-cov`.
-- Добавить лицензию и скриншот страницы в README.
 
